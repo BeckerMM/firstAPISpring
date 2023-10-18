@@ -1,33 +1,34 @@
 package net.weg.api.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.Set;
 
 //@Getter
 //@Setter
 //@ToString
+
 @Data // faz todas as anotações acima
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Entity //Ele considera a classe uma entidade, assim criando uma tabela para está entidade
+@Table(name = "tb_usuario")
 public class Usuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "username",unique = true, nullable = false)
     private String usuario;
     private String senha;
     private Integer idade;
-    private Carro carro;
-
-    public Usuario(ResultSet resultSet) throws SQLException {
-        this.id = resultSet.getInt("id");
-        this.idade = resultSet.getInt("idade");
-        this.usuario = resultSet.getString("nome");
-        this.senha = resultSet.getString("senha");
-        int idCarro = resultSet.getInt("id_carro");
-        if (idCarro != 0) {
-            this.carro = new Carro(idCarro);
-        }
-    }
+    @OneToMany (cascade = CascadeType.PERSIST)
+    private Set<Carro> carro;
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    private Set<String> endereco;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Habilitacao habilitacao;
+    @ManyToOne
+    private Consorcio consorcio;
 
 }
