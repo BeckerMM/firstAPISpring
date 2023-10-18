@@ -1,9 +1,8 @@
 package net.weg.api.controller;
 
 import net.weg.api.model.Carro;
-import net.weg.api.model.Usuario;
-import net.weg.api.repository.CarroDAO;
-import net.weg.api.repository.UsuarioDAO;
+
+import net.weg.api.service.CarroService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -11,30 +10,30 @@ import java.util.Collection;
 @RestController // Anotação para indicar que é um controller
 @RequestMapping("/carro")
 public class CarroController {
-    private CarroDAO carroDAO = new CarroDAO();
+    private CarroService carroService = new CarroService();
 
     @GetMapping("/{id}")
     public Carro buscarCarro(@PathVariable(value = "id") Integer id){
-        return carroDAO.buscarUm(id);
+        return carroService.buscarUm(id);
     }
 
     @GetMapping()
     public Collection<Carro> buscarTodos(){
-        return carroDAO.buscarTodos();
+        return carroService.buscarTodos();
     }
 
-    @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Integer id){
-        carroDAO.deletar(id);
+    @DeleteMapping
+    public void deletar(@RequestParam Integer id){
+        carroService.deletar(id);
     }
 
     @PostMapping()
     public void inserir(@RequestBody Carro carro){
-        carroDAO.inserir(carro);
+        carroService.inserir(carro);
     }
 
     @PutMapping
     public void atualizar(@RequestBody Carro carro){
-        carroDAO.atualizar(carro);
+        carroService.atualizar(carro);
     }
 }

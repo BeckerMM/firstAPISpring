@@ -8,23 +8,28 @@ import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-public abstract class DAOPadrao<T,ID>  implements ICRUD<T,ID> {
+public abstract class DAOPadrao<T, ID> implements ICRUD<T, ID> {
     protected Connection connection;
     protected String comandoSQL;
     private String tabela;
 
     public DAOPadrao(String tabela) {
-        this.connection = Banco.conectar();
         this.tabela = tabela;
     }
+
 
     @Override
     public void close() throws Exception {
         this.connection.close();
     }
 
+    protected void conectar() {
+        this.connection = Banco.conectar();
+    }
+
     public Set<T> buscarTodos() {
-        comandoSQL = "SELECT * FROM "+tabela+";";
+        conectar();
+        comandoSQL = "SELECT * FROM " + tabela + ";";
         try {
             PreparedStatement statement = connection.prepareStatement(comandoSQL);
             ResultSet resultSet = statement.executeQuery();
@@ -36,32 +41,52 @@ public abstract class DAOPadrao<T,ID>  implements ICRUD<T,ID> {
             return lista;
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            try {
+                this.connection.close();
+            }catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }
 
     public void deletar(Integer id) {
-        comandoSQL = "DELETE FROM "+tabela+" WHERE id = ?;";
+        conectar();
+        comandoSQL = "DELETE FROM " + tabela + " WHERE id = ?;";
         try {
             PreparedStatement statement = connection.prepareStatement(comandoSQL);
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            try {
+                this.connection.close();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
-    public T buscarUm(Integer id) {
 
-        comandoSQL = "SELECT * FROM "+tabela+" WHERE id = ?";
-        try(PreparedStatement statement = connection.prepareStatement(comandoSQL)) {
-            statement.setInt(1,id);
+    public T buscarUm(Integer id) {
+        conectar();
+        comandoSQL = "SELECT * FROM " + tabela + " WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(comandoSQL)) {
+            statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 return converter(resultSet);
             }
             throw new NoSuchElementException();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            try {
+                this.connection.close();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }

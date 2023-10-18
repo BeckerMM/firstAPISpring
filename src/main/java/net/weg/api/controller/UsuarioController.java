@@ -4,31 +4,33 @@ import net.weg.api.model.Usuario;
 import net.weg.api.repository.UsuarioDAO;
 import net.weg.api.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Collection;
-
 
 // Controller serve para fazer o mapeamento, pouca lógica
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
 
-    private UsuarioDAO usuarioDAO = new UsuarioDAO();
-    private UsuarioService usuarioService = new UsuarioService();
+
+    private UsuarioService usuarioService;
+
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
 
     @GetMapping("/{id}")
     public Usuario buscarUsuario(@PathVariable(value = "id") Integer id){
-        return usuarioDAO.buscarUm(id);
+        return usuarioService.buscarUm(id);
     }
 
     @GetMapping()
     public Collection<Usuario> buscarTodos(){
-        return usuarioDAO.buscarTodos();
+        return usuarioService.buscarTodos();
     }
 
-    @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Integer id){
-        usuarioDAO.deletar(id);
+    @DeleteMapping
+    public void deletar(@RequestParam("value") Integer id){
+        usuarioService.deletar(id);
     }
 
     @PostMapping()
@@ -38,6 +40,6 @@ public class UsuarioController {
 
     @PutMapping
     public void atualizar(@RequestBody Usuario usuario){
-        usuarioDAO.atualizar(usuario);
+        usuarioService.atualizar(usuario);
     }
 }
