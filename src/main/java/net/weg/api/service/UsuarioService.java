@@ -2,37 +2,35 @@ package net.weg.api.service;
 
 
 import lombok.AllArgsConstructor;
-import net.weg.api.model.Usuario;
-import net.weg.api.repository.UsuarioRepository;
+import net.weg.api.model.Cliente;
+import net.weg.api.repository.ClienteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service // Define que é uma camada de serviço
 @AllArgsConstructor
 
 public class UsuarioService {
 
-    private final UsuarioRepository usuarioRepository;
+    private final ClienteRepository clienteRepository;
     private final CarroService carroService;
 
 
-    public void salvar(Usuario usuario) {
+    public void salvar(Cliente cliente) {
 
-        usuarioRepository.save(usuario);
+        clienteRepository.save(cliente);
     }
 
-    public Usuario buscarUm(Integer id) {
-        return usuarioRepository.findById(id).get();
+    public Cliente buscarUm(Integer id) {
+        return clienteRepository.findById(id).get();
     }
 
-    public Collection<Usuario> buscarTodos() {
-        return usuarioRepository.findAll();
+    public Collection<Cliente> buscarTodos() {
+        return clienteRepository.findAll();
     }
 
     public void deletar(Integer id) {
-        usuarioRepository.deleteById(id);
+        clienteRepository.deleteById(id);
     }
 }
