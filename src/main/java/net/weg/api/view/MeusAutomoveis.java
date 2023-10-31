@@ -27,7 +27,9 @@ public class MeusAutomoveis extends VerticalLayout {
 
         horizontalLayout.add(new Button("Novo Carro", e -> cadastro.open()  ));
         add(horizontalLayout);
-        add(new Grid<>(Carro.class));
+        Grid<Carro> grid = new Grid<>(Carro.class);
+        grid.setItems(carroService.buscarTodos());
+        add(grid    );
     }
 
 }

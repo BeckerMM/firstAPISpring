@@ -27,9 +27,8 @@ public class CadastroCarro extends FormLayout {
         IntegerField ano= new IntegerField("Ano");
         NumberField preco = new NumberField("Preco");
 
-        Button saveButton = new Button("salva", new ComponentEventListener<ClickEvent<Button>>() {
-            @Override
-            public void onComponentEvent(ClickEvent<Button> buttonClickEvent) {
+        Button saveButton = new Button("Salvar", event -> {
+
                 preco.getValue();
                 CarroCadastroDTO carroCadastroDTO = new CarroCadastroDTO(marca.getValue(),
                         cor.getValue(),
@@ -44,10 +43,10 @@ public class CadastroCarro extends FormLayout {
                     throw new RuntimeException(e);
                 }
                 dialog.close();
-            }
+
         });
 
-        Button buttonCancelar = new Button("Cancelar", e -> dialog.close());
+        Button buttonCancelar = new Button("Cancelar", event -> dialog.close() );
         dialog.getFooter().add(buttonCancelar,saveButton);
 
         FormLayout cadastro = new FormLayout();

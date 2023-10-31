@@ -25,15 +25,14 @@ public class AppLayoutNavbar extends AppLayout {
         Tabs tabs = new Tabs();
         tabs.getStyle().set("margin", "auto");
         tabs.add(createTab("Início"),
-                createTab("Meus Seguros", MeusAutomoveis.class),
-                createTab("Meus Automóveis"),
+                createTab("Meus Seguros", MeusSeguros.class),
+                createTab("Meus Automóveis", MeusAutomoveis.class),
                 createTab("Perfil"));
         return tabs;
     }
 
     private Tab createTab(String viewName,Class classe) {
         RouterLink link = new RouterLink();
-        link.add(viewName);
         // Demo has no routes
         link.add(viewName);
         link.setRoute(classe );
@@ -46,7 +45,7 @@ public class AppLayoutNavbar extends AppLayout {
         RouterLink link = new RouterLink();
         link.add(viewName);
         // Demo has no routes
-//         link.setRoute(viewClass.class);
+//        link.setRoute(viewClass.class);
         link.setTabIndex(-1);
 
         return new Tab(link);
