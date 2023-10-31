@@ -23,7 +23,7 @@ public class MeusAutomoveis extends VerticalLayout {
                 new HorizontalLayout();
         horizontalLayout.add(new H1("Meus Automóveis"));
         Dialog cadastro = new Dialog();
-        cadastro.add(new CadastroCarro());
+        cadastro.add(new CadastroCarro(carroService, cadastro));
 
         horizontalLayout.add(new Button("Novo Carro", e -> cadastro.open()  ));
         add(horizontalLayout);
