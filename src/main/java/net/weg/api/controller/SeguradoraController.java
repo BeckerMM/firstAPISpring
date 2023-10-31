@@ -1,7 +1,7 @@
 package net.weg.api.controller;
 
 import lombok.AllArgsConstructor;
-import net.weg.api.model.Seguradora;
+import net.weg.api.model.entity.Seguradora;
 
 import net.weg.api.repository.SeguradoraRepository;
 import net.weg.api.repository.SeguroRepository;

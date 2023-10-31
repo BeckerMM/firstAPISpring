@@ -1,4 +1,4 @@
-package net.weg.api.model;
+package net.weg.api.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Habilitacao {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)// cria o resgistro a partir da tabela
+    @GeneratedValue(strategy = GenerationType.IDENTITY)// cria o resgistro a partir da tabela
     private Integer id;
     private Long registro,cpf;
     private String orgao;

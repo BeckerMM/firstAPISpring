@@ -1,34 +1,1 @@
-package net.weg.api.service;
-
-
-import lombok.AllArgsConstructor;
-import net.weg.api.model.Carro;
-import net.weg.api.repository.CarroRepository;
-import org.springframework.stereotype.Service;
-
-import java.util.Collection;
-import java.util.Optional;
-
-@AllArgsConstructor
-@Service
-public class CarroService {
-    private final CarroRepository carroRepository;
-
-    public Carro buscarUm(Integer id) {
-        Optional<Carro> carro = carroRepository.findById(id);
-        return carro.get();
-    }
-
-    public Collection<Carro> buscarTodos() {
-        return carroRepository.findAll();
-    }
-
-    public void deletar(Integer id) {
-        carroRepository.deleteById(id);
-    }
-
-    public void salvar(Carro carro) {
-        carroRepository.save(carro);
-    }
-
-}
+package net.weg.api.service;import lombok.AllArgsConstructor;import net.weg.api.model.dto.CarroCadastroDTO;import net.weg.api.model.dto.CarroEdicaoDTO;import net.weg.api.model.entity.Carro;import net.weg.api.repository.CarroRepository;import org.springframework.beans.BeanUtils;import org.springframework.stereotype.Service;import java.util.Collection;import java.util.Optional;@AllArgsConstructor@Servicepublic class CarroService {    private final CarroRepository carroRepository;    public Carro buscarUm(Integer id) {        Optional<Carro> carro = carroRepository.findById(id);        return carro.get();    }    public Collection<Carro> buscarTodos() {        return carroRepository.findAll();    }    public Collection<Carro> buscarCarrosSeguradora(Integer id) {        return  carroRepository.findBySeguro_Seguradora_Id(id);    }    public void deletar(Integer id) {        carroRepository.deleteById(id);    }    public Carro salvar(CarroCadastroDTO carroDTO) throws Exception {        Carro carro = new Carro();        BeanUtils.copyProperties(carroDTO,carro);        if (carroRepository.existsByPlaca(carro.getPlaca())){            throw  new Exception("Há um carro com a placa" + carro.getPlaca() + "cadastrada");        }        carroRepository.save(carro);        return carro;    }    public void editar (CarroEdicaoDTO carroDTO){        Carro carro = new Carro();        BeanUtils.copyProperties(carroDTO,carro);       carroRepository.save(carro);    }    public Collection<Carro> buscarCarroMarca(String marca) {        return carroRepository.findByMarca(marca);    }}

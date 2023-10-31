@@ -1,7 +1,7 @@
 package net.weg.api.controller;
 
 import lombok.AllArgsConstructor;
-import net.weg.api.model.Cliente;
+import net.weg.api.model.entity.Cliente;
 import net.weg.api.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
 import java.util.Collection;

@@ -1,4 +1,4 @@
-package net.weg.api.model;
+package net.weg.api.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,6 +22,6 @@ public class Usuario {
     private String senha;
     private Integer idade;
     @ManyToMany(cascade = CascadeType.PERSIST)
-    private Set<String> endereco;
+    private Set<Endereco> endereco;
 
 }

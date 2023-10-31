@@ -1,7 +1,8 @@
 package net.weg.api.service;
 
 import lombok.AllArgsConstructor;
-import net.weg.api.model.Seguro;
+
+import net.weg.api.model.entity.Seguro;
 import net.weg.api.repository.SeguroRepository;
 import org.springframework.stereotype.Service;
 
