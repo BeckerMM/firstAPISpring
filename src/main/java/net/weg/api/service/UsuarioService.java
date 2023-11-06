@@ -3,8 +3,10 @@ package net.weg.api.service;
 
 import lombok.AllArgsConstructor;
 
+import net.weg.api.model.dto.UsuarioDTO;
 import net.weg.api.model.entity.Cliente;
 import net.weg.api.repository.ClienteRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -18,8 +20,9 @@ public class UsuarioService {
     private final CarroService carroService;
 
 
-    public void salvar(Cliente cliente) {
-
+    public void salvar(UsuarioDTO usuarioDTO) {
+        Cliente cliente = new Cliente();
+        BeanUtils.copyProperties(usuarioDTO,cliente);
         clienteRepository.save(cliente);
     }
 
