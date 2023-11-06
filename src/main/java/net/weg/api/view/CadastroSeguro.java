@@ -39,6 +39,7 @@ public class CadastroSeguro extends FormLayout {
         carroSelect.setLabel("Carros");
         carroSelect.setItems(carroService.buscarTodos());
         Select<Cliente> usuarioSelect = new Select<>();
+//        usuarioSelect.setItemLabelGenerator(item ->toString());
         usuarioSelect.setLabel("Usuários");
         usuarioSelect.setItems(usuarioService.buscarTodos());
 

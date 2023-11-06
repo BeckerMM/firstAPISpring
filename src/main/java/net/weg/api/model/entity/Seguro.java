@@ -15,7 +15,7 @@ public class Seguro {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Integer id;
     @EmbeddedId // sempre que tiver uma chave composta utiliza est? anota??o
-    private SeguroId id;
+    private SeguroId id = new SeguroId();
     private Double valor;
     private String nome;
     private String descricao;

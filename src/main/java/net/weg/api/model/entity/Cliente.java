@@ -13,14 +13,19 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity //Ele considera a classe uma entidade, assim criando uma tabela para está entidade
+@ToString(callSuper = true)
 @Table(name = "tb_cliente")
 public class Cliente extends Usuario {
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Carro> carro;
     @OneToOne(cascade = CascadeType.PERSIST)
     private Habilitacao habilitacao;
-    @OneToMany(mappedBy = "cliente") // sempre colocar no one to many
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER) // sempre colocar no one to many
     private Set<Seguro> seguros;
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

@@ -17,6 +17,8 @@ import java.util.Set;
 
 public class UsuarioDTO {
 
+    private String nome;
+    private String sobrenome;
     private String usuario;
     private String senha;
     private Integer idade;

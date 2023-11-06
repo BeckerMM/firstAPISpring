@@ -23,6 +23,9 @@ import java.util.Set;
 @Route(value = "/cadastro-usuario", layout = AppLayoutNavbar.class)
 public class CadastroUsuario extends FormLayout {
 
+    private TextField nome = new TextField("Nome");
+    private TextField sobrenome = new TextField("Sobrenome");
+
     private final TextField usuario = new TextField("Usuário");
     private final PasswordField senha = new PasswordField("Senha");
     private final PasswordField confirmacaoSenha = new PasswordField("Confimar Senha");
@@ -61,6 +64,8 @@ public class CadastroUsuario extends FormLayout {
                             enderecos1.add(endereco);
                         });
                 usuarioService.salvar(new UsuarioDTO(
+                        nome.getValue(),
+                        sobrenome.getValue(),
                         usuario.getValue(),
                         senha.getValue(),
                         idade.getValue(),
@@ -78,7 +83,7 @@ public class CadastroUsuario extends FormLayout {
         cancelar = new Button("Cancelar", event -> {new UI().navigate("/");
         });
 
-        add(usuario, senha, confirmacaoSenha,idade, enderecos,novoEndereco, enderecos,cancelar,salvar);
+        add(nome, sobrenome ,usuario, senha, confirmacaoSenha,idade, enderecos,novoEndereco, enderecos,cancelar,salvar);
     }
 
 }
